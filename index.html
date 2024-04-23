@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX JQuery</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <p id="para"></p>
+
+    <!-- <form action="" method="GET"> -->
+        <p>Please select your favorite animal:</p>
+        <input type="radio" id="cat" name="animal" value="cat">
+        <label for="cat">Cat</label><br>
+        <input type="radio" id="dog" name="animal" value="dog">
+        <label for="dog">Dog</label><br>
+        <input type="radio" id="horse" name="animal" value="horse">
+        <label for="horse">Horse</label>
+        <br>
+        <button id="request">Random</button>
+    <!-- </form> -->
+    
+
+    <script>
+        const parag = document.getElementById("para");
+        const requestButton = document.querySelector("#request");
+
+        requestButton.addEventListener("click", (event) => {
+            const checkedAnimalValue = document.querySelector('input[type="radio"]:checked').value;
+            getRequest(checkedAnimalValue);
+        });
+
+        function getRequest(checkedAnimalValue = "cat") {
+            $.get(`https://cat-fact.herokuapp.com/facts/random?animal_type=${checkedAnimalValue}&amount=1`, function(data){
+                parag.innerHTML = "Le text est: " + data.text; 
+            });
+        }
+
+        getRequest()
+    </script>
+    
+</body>
+</html>
